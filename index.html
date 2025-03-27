@@ -3,109 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mžourack</title>
+    <title>Mžourack - Glitch Resonance</title>
     <style>
         body {
-            background: radial-gradient(circle, #ff00ff, #00ffff, #ffff00);
-            color: #000;
-            font-family: 'Comic Sans MS', cursive, fantasy; /* Yes, Comic Sans. */
-            text-align: center;
+            background: linear-gradient(to bottom, #110022, #001111, #220011);
+            color: #ccffcc;
+            font-family: 'Courier New', monospace;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            animation: colorShift 20s linear infinite;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            perspective: 1200px; /* Apply perspective to body */
+            transform-style: preserve-3d;
+            animation: backgroundFlicker 2000ms steps(4, end) infinite;
+            box-sizing: border-box;
         }
+    
         .section {
-            height: 100vh;
+            min-height: 100vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transform-style: preserve-3d;
+            animation: rotateSection 20s linear infinite;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
         }
+    
         .synth-image {
-            max-width: 60%;
-            animation: spinAndDistort 10s linear infinite, glitch 1s steps(2, end) infinite;
+            max-width: 10%;
+            filter: saturate(150%) hue-rotate(180deg) invert(1);
+            box-shadow: 0 0 10px white;
+            animation: wobble 5s linear infinite;
+            transform: translateZ(200px); /* Simplified transform */
+            box-sizing: border-box;
         }
+    
         h1 {
             font-size: 4em;
-            text-shadow: 3px 3px 5px #000;
-            animation: jiggle 5s linear infinite;
+            text-shadow: 0 0 20px #00ff00, 0 0 10px #ff00ff;
+            letter-spacing: 0.2em;
+            animation: flickerText 1s steps(2, end) infinite, jiggleText 3s linear infinite;
+            box-sizing: border-box;
         }
+    
         p {
-            font-size: 1.5em;
+            font-size: 1.3em;
             margin-bottom: 30px;
+            line-height: 1.6;
             animation: typeWriter 4s steps(30, end) infinite alternate;
             white-space: nowrap;
             overflow: hidden;
-            border-right: .15em solid orange;
+            border-right: .15em solid #00ffff;
+            transform: translateZ(100px); /* Simplified transform */
+            box-sizing: border-box;
         }
+    
         .button {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            color: white;
+            background: rgba(0, 255, 255, 0.2);
+            color: #ffffff;
             padding: 20px 40px;
             text-decoration: none;
-            border-radius: 50%;
-            font-weight: bolder;
-            font-size:1.2em;
-            transform: rotate(calc(var(--rotation, 0) * 1deg));
-            animation: rotateButton 7s linear infinite;
+            border: 2px solid #5e5e5e;
+            animation: pulseButton 3s ease-in-out infinite;
+            transform: translateZ(150px); /* Simplified transform */
+            box-sizing: border-box;
         }
-
-        @keyframes colorShift {
-            0% { background: radial-gradient(circle, #ff00ff, #00ffff, #ffff00); }
-            50% { background: radial-gradient(circle, #00ffff, #ffff00, #ff00ff); }
-            100% { background: radial-gradient(circle, #ffff00, #ff00ff, #00ffff); }
+    
+        audio {
+            filter: invert(100%) brightness(1.5) contrast(1.2);
+            transform: translateZ(50px); /* Simplified transform */
+            box-sizing: border-box;
         }
-
-        @keyframes spinAndDistort {
-            0% { transform: rotate(0deg) skew(0deg); }
-            50% { transform: rotate(180deg) skew(20deg); }
-            100% { transform: rotate(360deg) skew(0deg); }
+    
+        @keyframes glitchImage {
+            0%, 100% { filter: blur(8px) saturate(150%) hue-rotate(180deg); }
+            50% { filter: blur(4px) saturate(200%) hue-rotate(270deg); }
         }
-
-        @keyframes jiggle {
+    
+        @keyframes flickerText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    
+        @keyframes pulseButton {
+            0%, 100% { transform: translateZ(150px) scale(1); }
+            50% { transform: translateZ(150px) scale(1.1); }
+        }
+    
+        @keyframes rotateSection {
+            to { transform: rotateY(360deg); }
+        }
+    
+        @keyframes wobble {
+            0%, 100% { transform: translateZ(200px) rotateY(45deg) rotateX(0deg); }
+            50% { transform: translateZ(200px) rotateY(-45deg) rotateX(20deg); }
+        }
+    
+        @keyframes jiggleText {
             0%, 100% { transform: translateY(0); }
             25% { transform: translateY(10px); }
             75% { transform: translateY(-10px); }
         }
-
-        @keyframes glitch {
-            0%, 100% { clip-path: polygon(0 2%, 100% 2%, 100% 95%, 0 95%); }
-            50% { clip-path: polygon(0 15%, 100% 15%, 100% 60%, 0 60%); }
-        }
+    
         @keyframes typeWriter {
-          from { width: 0; }
-          to { width: 100%; }
+            from { width: 0; }
+            to { width: 100%; }
         }
-        @keyframes rotateButton {
-          to {
-            --rotation: 360;
-          }
+    
+        @keyframes backgroundFlicker {
+            0%, 100% { background: linear-gradient(to bottom, #110022, #001111, #220011); }
+            25% { background: linear-gradient(to bottom, #000000, #110022, #000000); opacity: 0.8; }
+            50% { background: linear-gradient(to bottom, #220011, #000000, #110022); filter: blur(2px); opacity: 0.5; }
+            75% { background: linear-gradient(to bottom, #001111, #220011, #000000); opacity: 0.8; }
         }
-
     </style>
 </head>
 <body>
 
-    <div class="section">
-        <img src="matějobličej.png" alt="Matěj Obličej" class="synth-image">
-        <h1>mžouracky</h1>
+    <div class="section" id="section1">
+        <img src="matejoblicej.png" alt="Matěj Obličej" class="synth-image">
+        <h1>mžourack</h1>
         <p>mastěj šourek mastnej slávek bourek</p>
-        <a href="#hear-it" class="button">koupit</a>
+        <!-- <a href="#hear-it" class="button">koupit</a> -->
     </div>
 
-    <div class="section" id="hear-it">
-        <h1>skibidi zvukova ukazka</h1>
-        <audio controls loop>
-            <source src="placeholder-sound-glitch.mp3" type="audio/mpeg">
-        </audio>
+    <div class="section" id="section2">
+        <h1>skibidi linky kde to chceš koupit</h1>
+        <a href="#koupit tady" class="button">koupit tady</a>
     </div>
 
-    <div class="section">
-        <h1>Reality Reconfigured</h1>
-        <p>Contact for subjective waveforms.</p>
-        <a href="mailto:anomaly@chronosynth.net" class="button">Enter the Phase Shift</a>
+    <div class="section" id="section3">
+        <h1>blabla</h1>
+        <p>Contact for ...</p>
+        <a href="mailto:bla@blabla.net" class="button">subskraj</a>
     </div>
+
+    <script>
+        const section1 = document.getElementById('section1');
+        const section2 = document.getElementById('section2');
+        const section3 = document.getElementById('section3');
+        const synthImage = document.querySelector('.synth-image');
+        const h1 = document.querySelector('h1');
+        const p = document.querySelector('p');
+        const button = document.querySelector('.button');
+    
+        document.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight; // Get max scroll height
+    
+            // Calculate perspective and rotation based on scroll
+            const perspectiveValue = 1200 - (scrollY / maxScroll) * 800; // Perspective changes with scroll
+            const rotateXValue = (scrollY / maxScroll) * 60 - 30; // Rotate on X-axis
+            const rotateYValue = (scrollY / maxScroll) * 60 - 30; // Rotate on Y-axis
+            const translateZValue = (scrollY / maxScroll) * 300; // Move on Z-axis
+    
+            // Apply transformations
+            document.body.style.perspective = `${perspectiveValue}px`;
+    
+            section1.style.transform = `rotateX(${rotateXValue}deg) rotateY(${rotateYValue}deg) translateZ(${translateZValue}px)`;
+            section2.style.transform = `rotateX(${rotateYValue}deg) rotateY(${rotateXValue}deg) translateZ(${translateZValue / 2}px)`;
+            section3.style.transform = `rotateX(${rotateXValue / 2}deg) rotateY(${rotateYValue / 2}deg) translateZ(${translateZValue / 4}px)`;
+    
+            synthImage.style.transform = `translateZ(${translateZValue + 200}px)`;
+            h1.style.transform = `translateZ(${translateZValue + 50}px)`;
+            p.style.transform = `translateZ(${translateZValue + 100}px)`;
+            button.style.transform = `translateZ(${translateZValue + 150}px)`;
+        });
+    
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+            // Apply transformations based on mouse position
+            synthImage.style.transform += ` rotateY(${mouseX * 20}deg) rotateX(${mouseY * 20}deg)`;
+            h1.style.transform += ` rotateY(${mouseX * 10}deg) rotateX(${mouseY * 10}deg)`;
+            p.style.transform += ` rotateY(${mouseX * 5}deg) rotateX(${mouseY * 5}deg)`;
+            button.style.transform += ` rotateY(${mouseX * 15}deg) rotateX(${mouseY * 15}deg)`;
+            section1.style.transform += ` rotateY(${mouseX * -5}deg) rotateX(${mouseY * -5}deg)`
+        });
+    
+        document.addEventListener('mouseleave', () => {
+          synthImage.style.transform = `translateZ(200px)`;
+          h1.style.transform = `translateZ(50px)`;
+          p.style.transform = `translateZ(100px)`;
+          button.style.transform = `translateZ(150px)`;
+          section1.style.transform = `rotateY(0deg) rotateX(0deg)`
+        });
+    
+    </script>
 
 </body>
 </html>
